@@ -2,6 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#FF0000</color>
 
     <!-- Color de los fondos de aplicacion-->
     <color name="colorPrimary">#3E473F</color>
@@ -10,5 +11,9 @@
 
     <!-- Color de los textos de la app -->
     <color name="colorTextTile">#FFFFFFFF</color>
+
+    <!-- Color de los botones de la app -->
+    <color name="colorButton">#C1BFBF</color>
+    <color name="colorButtonPressed">#FFFFFF</color>
 
 </resources>
