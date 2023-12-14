@@ -15,10 +15,32 @@
         <item name="android:fontFamily">@font/whatever_it_takes</item>
     </style>
 
+    <style name="FinalExamsNumberQuestionsTexts">
+        <item name="android:textColor">@color/colorTextTile</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/whatever_it_takes</item>
+    </style>
+
+    <style name="FinalExamsBodyQuestionsTexts">
+        <item name="android:textColor">@color/colorTextTile</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/whatever_it_takes</item>
+    </style>
+
     <style name="FinalExamsButton">
         <item name="android:textColor">@drawable/button_text_color</item>
         <item name="android:textSize">50sp</item>
         <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/whatever_it_takes</item>
+    </style>
+
+    <style name="FinalExamsAnswerButton">
+        <item name="android:textColor">@drawable/button_text_color</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:gravity">left</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/whatever_it_takes</item>
     </style>
 

@@ -9,4 +9,25 @@
     android:layout_height="match_parent"
     tools:context=".PlayActivity">
 
+    <TextView
+        android:id="@+id/TimerText"
+        style="@style/FinalExamsTitlesTexts"
+        android:layout_width="405dp"
+        android:layout_height="112dp"
+        android:layout_marginTop="38dp"
+        android:text="00:00"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/gamecard"
+        layout="@layout/gamecard_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="196dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
