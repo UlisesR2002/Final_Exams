@@ -16,14 +16,24 @@ class MainActivity : AppCompatActivity() {
         playButton = findViewById(R.id.mainPlayButton)
         optionButton = findViewById(R.id.mainOptionButton)
 
-        playButton.setOnClickListener{
-            val intentPlayActivity = Intent(this, PlayActivity::class.java)
-            startActivity(intentPlayActivity)
+        // Configurar el clic del botón "Play"
+        playButton.setOnClickListener {
+            goPlayActivity()
         }
 
-        optionButton.setOnClickListener{
-            val intentOptionActivity = Intent(this, OptionActivity::class.java)
-            startActivity(intentOptionActivity)
+        // Configurar el clic del botón "Option"
+        optionButton.setOnClickListener {
+            goOptionActivity()
         }
+    }
+
+    private fun goPlayActivity() {
+        val intentPlayActivity = Intent(this, PlayActivity::class.java)
+        startActivity(intentPlayActivity)
+    }
+
+    private fun goOptionActivity() {
+        val intentOptionActivity = Intent(this, OptionActivity::class.java)
+        startActivity(intentOptionActivity)
     }
 }
