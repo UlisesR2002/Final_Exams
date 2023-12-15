@@ -6,14 +6,15 @@
 
     <!-- Color de los fondos de aplicacion-->
     <color name="colorPrimary">#3E473F</color>
-    <color name="colorPrimaryDark">#3E473F</color>
-    <color name="colorAccent">#3E473F</color>
+    <color name="colorPrimaryDark">#2F3530</color>
+    <color name="colorAccent">#FBFBFB</color>
 
     <!-- Color de los textos de la app -->
     <color name="colorTextTile">#FFFFFFFF</color>
 
     <!-- Color de los botones de la app -->
     <color name="colorButton">#C1BFBF</color>
-    <color name="colorButtonPressed">#FFFFFF</color>
+    <color name="colorButtonPressed">#FF0000</color>
 
+    <color name="tab_button_pressed_color">#FF0000</color>
 </resources>

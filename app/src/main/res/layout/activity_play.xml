@@ -15,10 +15,11 @@
         android:layout_width="405dp"
         android:layout_height="112dp"
         android:layout_marginTop="38dp"
-        android:text="00:00"
+        android:text="@string/play_timer_textview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextSizeCheck" />
 
     <include
         android:id="@+id/gamecard"
@@ -30,4 +31,5 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

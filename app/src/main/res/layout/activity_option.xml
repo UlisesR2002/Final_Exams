@@ -3,10 +3,71 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/Base.Theme.FinalExams"
-    android:background="@color/colorPrimary"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/Base.Theme.FinalExams"
+    android:background="@color/colorPrimary"
     tools:context=".OptionActivity">
+
+
+    <TextView
+        android:id="@+id/DificultyTextView"
+        style="@style/FinalExamsBodyQuestionsTexts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="170dp"
+        android:layout_marginTop="57dp"
+        android:layout_marginEnd="170dp"
+        android:text="@string/option_difficulty_textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="580dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/DificultyTextView">
+
+
+        <Button
+            android:id="@+id/EasyButton"
+            style="@style/FinalExamsTabButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/option_difficulty1_button"
+            app:cornerRadius="0dp"
+            tools:ignore="VisualLintButtonSize" />
+
+        <Button
+            android:id="@+id/NormalButton"
+            style="@style/FinalExamsTabButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/option_difficulty2_button"
+            app:cornerRadius="0dp"
+            tools:ignore="VisualLintButtonSize" />
+
+        <Button
+            android:id="@+id/HardButton"
+            style="@style/FinalExamsTabButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/option_difficulty3_button"
+            app:cornerRadius="0dp"
+            tools:ignore="VisualLintButtonSize" />
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

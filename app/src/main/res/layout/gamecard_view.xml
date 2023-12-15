@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/Base.Theme.FinalExams"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -22,15 +23,16 @@
             style="@style/FinalExamsNumberQuestionsTexts"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text=" Question N°"
-            android:textStyle="bold" />
+            android:text="@string/gamecard_question_number_textview"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/cardTextViewQuestionBody"
             style="@style/FinalExamsBodyQuestionsTexts"
             android:layout_width="351dp"
             android:layout_height="153dp"
-            android:text=" Question body" />
+            android:text="@string/gamecard_question_body_textview" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,8 +45,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:textStyle="bold"
-                android:text="Answer number 1" />
+                android:text="@string/gamecard_question_option1_textview"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/cardButtonOption2"
@@ -52,7 +54,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="Answer number 1" />
+                android:text="@string/gamecard_question_option2_textview" />
         </LinearLayout>
 
         <LinearLayout
@@ -66,7 +68,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="Answer number 1" />
+                android:text="@string/gamecard_question_option3_textview" />
 
             <Button
                 android:id="@+id/cardButtonOption4"
@@ -74,7 +76,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="Answer number 1" />
+                android:text="@string/gamecard_question_option4_textview" />
         </LinearLayout>
 
     </LinearLayout>

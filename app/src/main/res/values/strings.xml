@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Final Exams</string>
+
+    <string name="main_play_button">Play</string>
+    <string name="main_option_button">Options</string>
+
+    <string name="option_difficulty_textview">Difficulty</string>
+    <string name="option_difficulty1_button">Easy</string>
+    <string name="option_difficulty2_button">Medium</string>
+    <string name="option_difficulty3_button">Hard</string>
+
+    <string name="play_timer_textview">00:00</string>
+
+    <string name="gamecard_question_number_textview">Question N°</string>
+    <string name="gamecard_question_body_textview">Question body</string>
+    <string name="gamecard_question_option1_textview">Option A</string>
+    <string name="gamecard_question_option2_textview">Option B</string>
+    <string name="gamecard_question_option3_textview">Option C</string>
+    <string name="gamecard_question_option4_textview">Option D</string>
 </resources>
