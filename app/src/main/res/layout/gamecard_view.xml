@@ -5,16 +5,16 @@
     style="@style/Base.Theme.FinalExams"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp"
-    app:cardUseCompatPadding="true"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="0dp"
 
-    android:layout_margin="8dp">
+    app:cardUseCompatPadding="true">
 
     <LinearLayout
-        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         android:orientation="vertical"
         android:padding="16dp">
 
@@ -30,7 +30,7 @@
         <TextView
             android:id="@+id/cardTextViewQuestionBody"
             style="@style/FinalExamsBodyQuestionsTexts"
-            android:layout_width="351dp"
+            android:layout_width="match_parent"
             android:layout_height="153dp"
             android:text="@string/gamecard_question_body_textview" />
 

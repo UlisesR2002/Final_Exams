@@ -14,7 +14,9 @@
 
     <!-- Color de los botones de la app -->
     <color name="colorButton">#C1BFBF</color>
-    <color name="colorButtonPressed">#FF0000</color>
+    <color name="colorButtonPressed">#FFFFFF</color>
+    <color name="colorTabButtonBackground">#2F3530</color>
+    <color name="colorTabButtonBackgroundSelected">#4E5E50</color>
 
     <color name="tab_button_pressed_color">#FF0000</color>
 </resources>
