@@ -80,7 +80,7 @@ class OptionActivity : AppCompatActivity() {
     }
     private fun saveSelectedCategories(selectedCategories: BooleanArray) {
         with(sharedPreferences.edit()) {
-            for (i in selectedCategories.indices) {
+            for (i in 0 until selectedCategories.size) {
                 putBoolean("$KEY_CATEGORY$i", selectedCategories[i])
             }
             apply()
@@ -100,8 +100,23 @@ class OptionActivity : AppCompatActivity() {
             selectedCategories[i] = sharedPreferences.getBoolean("$KEY_CATEGORY$i", false)
         }
 
+        // Verificar si es la primera vez que se carga la preferencia
+        val isFirstTime = sharedPreferences.getBoolean("FIRST_TIME_LOAD_CATEGORIES", true)
+
+        if (isFirstTime) {
+            // Establecer "Any category" como activado por defecto solo la primera vez
+            selectedCategories[0] = true
+
+            // Guardar la indicación de que ya no es la primera vez
+            with(sharedPreferences.edit()) {
+                putBoolean("FIRST_TIME_LOAD_CATEGORIES", false)
+                apply()
+            }
+        }
+
         return selectedCategories
     }
+
     private fun showCategorySelectionDialog() {
         val categories = arrayOf(
             "Any category", "General knowledge", "Books", "Film", "Music", "Musical & Theatres", "Television", "Video games",
@@ -112,24 +127,29 @@ class OptionActivity : AppCompatActivity() {
         val selectedCategories = loadSelectedCategories()
 
         val builder = AlertDialog.Builder(this)
-        builder.setTitle(R.string.option_select_category_button)
+        val dialog: AlertDialog = builder.setTitle(R.string.option_select_category_button)
             .setMultiChoiceItems(categories, selectedCategories) { _, which, isChecked ->
                 selectedCategories[which] = isChecked
+                if (which != 0) {
+                    selectedCategories[0] = false
+                }
+
+                for (i in 1 until selectedCategories.size) {
+                    if (selectedCategories[0]) {
+                        selectedCategories[i] = false
+                    }
+                }
             }
             .setPositiveButton("Accept") { _, _ ->
-                // Aquí puedes hacer algo con los temas seleccionados
-                // selectedThemes contiene un arreglo de booleanos que indica cuáles temas están seleccionados
-                // Puedes usar este arreglo para realizar acciones específicas en base a los temas seleccionados
                 saveSelectedCategories(selectedCategories)
             }
             .setNegativeButton("Cancel") { _, _ ->
                 // Cancelar, no se realiza ninguna acción
             }
+            .create()
 
-        val dialog = builder.create()
         dialog.show()
     }
-
     companion object {
         private const val KEY_DIFFICULTY = "difficulty_preference"
         private const val DEFAULT_DIFFICULTY = "easy"
