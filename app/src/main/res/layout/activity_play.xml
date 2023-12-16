@@ -12,9 +12,10 @@
     <TextView
         android:id="@+id/TimerText"
         style="@style/FinalExamsTitlesTexts"
-        android:layout_width="405dp"
+        android:layout_width="160dp"
         android:layout_height="112dp"
         android:layout_marginTop="38dp"
+        android:gravity="left"
         android:text="@string/play_timer_textview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

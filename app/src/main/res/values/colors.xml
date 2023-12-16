@@ -19,4 +19,8 @@
     <color name="colorTabButtonBackgroundSelected">#4E5E50</color>
 
     <color name="tab_button_pressed_color">#FF0000</color>
+
+    <color name="colorCorrect">#87CEEB</color> <!-- Azul claro -->
+    <color name="colorIncorrect">#FF4500</color> <!-- Rojo claro -->
+
 </resources>
