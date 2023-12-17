@@ -9,6 +9,30 @@
     android:background="@color/colorPrimary"
     tools:context=".OptionActivity">
 
+    <TextView
+        android:id="@+id/HighScoreTextView"
+        style="@style/FinalExamsNumberQuestionsTexts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="150dp"
+        android:text="@string/option_high_score_textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/HighScoreValueTextView"
+        style="@style/FinalExamsBodyQuestionsTexts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="164dp"
+        android:layout_marginEnd="164dp"
+        android:text="@string/option_high_score_value_textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/HighScoreTextView" />
 
     <TextView
         android:id="@+id/DificultyTextView"
@@ -16,28 +40,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="170dp"
-        android:layout_marginTop="57dp"
+        android:layout_marginTop="140dp"
         android:layout_marginEnd="170dp"
         android:text="@string/option_difficulty_textview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/HighScoreTextView" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginBottom="650dp"
+        android:layout_marginBottom="16dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/DificultyTextView">
-
+        app:layout_constraintTop_toBottomOf="@id/DificultyTextView">
 
         <Button
             android:id="@+id/optionEasyButton"
@@ -77,9 +98,8 @@
         android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="61dp"
-        android:layout_marginTop="30dp"
         android:layout_marginEnd="61dp"
-        android:layout_marginBottom="457dp"
+        android:layout_marginBottom="340dp"
         android:layout_weight="1"
         android:text="@string/option_select_category_button"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -87,8 +107,6 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.0"
         tools:ignore="TextSizeCheck" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

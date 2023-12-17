@@ -5,9 +5,12 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class OptionActivity : AppCompatActivity() {
+
+    private lateinit var highScoreTextView: TextView
     private lateinit var easyDifficultyButton: Button
     private lateinit var mediumDifficultyButton: Button
     private lateinit var hardDifficultyButton: Button
@@ -19,6 +22,7 @@ class OptionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_option)
 
+        highScoreTextView = findViewById(R.id.HighScoreValueTextView)
         easyDifficultyButton = findViewById(R.id.optionEasyButton)
         mediumDifficultyButton = findViewById(R.id.optionMediumButton)
         hardDifficultyButton = findViewById(R.id.optionHardButton)
@@ -30,6 +34,9 @@ class OptionActivity : AppCompatActivity() {
         println("Category Names: ${categoryNames.joinToString(", ")}")
         println("Category Bool: ${selectedCategories.joinToString(", ")}")
 
+        // Obtener la preferencia de puntaje mas alto almacenada
+        val highScore = loadHighScore(sharedPreferences)
+        updateHighScore(highScore)
 
         // Obtener la preferencia de dificultad almacenada
         val savedDifficulty = sharedPreferences.getString(KEY_DIFFICULTY, DEFAULT_DIFFICULTY)
@@ -57,6 +64,16 @@ class OptionActivity : AppCompatActivity() {
         selectCategoryButton.setOnClickListener {
             showCategorySelectionDialog()
         }
+    }
+
+
+    private fun loadHighScore(sharedPreferences: SharedPreferences): Int {
+        return sharedPreferences.getInt(KEY_HIGH_SCORE, 0)
+    }
+
+    private fun updateHighScore(newHighScore: Int) {
+        // Actualizar el TextView que muestra el highscore
+        highScoreTextView.text = newHighScore.toString()
     }
 
     private fun saveAndSelectDifficulty(difficulty: String) {
@@ -142,6 +159,15 @@ class OptionActivity : AppCompatActivity() {
         private const val KEY_CATEGORY = "category_preference"
         const val KEY_CATEGORY_NAMES = "category_names_preference"
 
+        const val KEY_HIGH_SCORE = "high_score_preference"
+
+        fun saveHighScore(highScore: Int, sharedPreferences: SharedPreferences) {
+            // Guardar el highscore en SharedPreferences
+            with(sharedPreferences.edit()) {
+                putInt(KEY_HIGH_SCORE, highScore)
+                apply()
+            }
+        }
         fun loadSelectedCategories(sharedPreferences: SharedPreferences): Pair<BooleanArray, Array<String>> {
             val categories = arrayOf(
                 "Any category", "General knowledge", "Books", "Film", "Music", "Musical & Theatres", "Television", "Video games",
