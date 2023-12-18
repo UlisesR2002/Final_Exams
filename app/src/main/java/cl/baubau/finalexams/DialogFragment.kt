@@ -12,8 +12,9 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 
 
-class MyDialogFragment : DialogFragment() {
+class MyDialogFragment(score: Int) : DialogFragment() {
     private lateinit var sharedPreferences: SharedPreferences
+    private var score: Int = score
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Inflar el diseño del diálogo
@@ -21,7 +22,7 @@ class MyDialogFragment : DialogFragment() {
         val view: View = inflater.inflate(R.layout.popup_loss, null)
 
         // Configurar los elementos de la interfaz
-        val score = view.findViewById<TextView>(R.id.popupScoreTextView)
+        val scoreTextView = view.findViewById<TextView>(R.id.popupScoreTextView)
         val highScore = view.findViewById<TextView>(R.id.popupHighScoreTextView)
         val button1 = view.findViewById<Button>(R.id.popupRetryButton)
         val button2 = view.findViewById<Button>(R.id.popupHomeButton)
@@ -31,44 +32,27 @@ class MyDialogFragment : DialogFragment() {
         val savedHighScore =
             sharedPreferences.getInt(OptionActivity.KEY_HIGH_SCORE, 0)
 
-
+        scoreTextView.text = getString(R.string.popup_high_score_textview) + score.toString()
         highScore.text = getString(R.string.popup_high_score_textview) + savedHighScore.toString()
 
         button1.setOnClickListener {
             // Acción para el botón 1
             dismiss() // Cerrar el diálogo si es necesario
-            val restartActivity = arguments?.getBoolean(ARG_RESTART_ACTIVITY, false) ?: false
-            if (restartActivity) {
-                requireActivity().recreate()
-            }
+            val intent = Intent(requireContext(), PlayActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
         }
         button2.setOnClickListener {
             // Acción para el botón 2
             dismiss() // Cerrar el diálogo si es necesario
-            val restartActivity = arguments?.getBoolean(ARG_RESTART_ACTIVITY, false) ?: false
-            if (!restartActivity) {
-                val intent = Intent(requireContext(), MainActivity::class.java)
-                startActivity(intent)
-                requireActivity().finish()
-            }
+            val intent = Intent(requireContext(), MainActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
         }
 
         // Crear el diálogo con el diseño personalizado
         val builder = AlertDialog.Builder(requireActivity())
         builder.setView(view)
         return builder.create()
-    }
-
-    companion object {
-        private const val ARG_RESTART_ACTIVITY = "restart_activity"
-
-        // Método para crear una nueva instancia del fragmento con un argumento
-        fun newInstance(restartActivity: Boolean): MyDialogFragment {
-            val fragment = MyDialogFragment()
-            val args = Bundle()
-            args.putBoolean(ARG_RESTART_ACTIVITY, restartActivity)
-            fragment.arguments = args
-            return fragment
-        }
     }
 }

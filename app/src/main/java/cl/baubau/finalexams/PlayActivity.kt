@@ -1,7 +1,6 @@
 package cl.baubau.finalexams
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -17,7 +16,12 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
     private var betweenQuestionTimer: CountDownTimer? = null
 
     private var timeLeftInMillis: Long = 15000 // 15 segundos inicialmente
-    private lateinit var TimerText: TextView
+    private lateinit var timerText: TextView
+
+    private var score: Int = 0
+    private var highScore: Int = 0
+    private lateinit var scoreTextView: TextView
+    private lateinit var highScoreTextView: TextView
 
     private lateinit var questionTextView: TextView
     private lateinit var cardButtonOption1: Button
@@ -45,13 +49,21 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
         println("Category Names: ${categoryNames.joinToString(", ")}")
         println("Category Bool: ${selectedCategories.joinToString(", ")}")
 
+        highScore =
+            sharedPreferences.getInt(OptionActivity.KEY_HIGH_SCORE, 0)
+
         // Buscar las vistas por sus IDs
-        TimerText = findViewById(R.id.TimerText)
+        timerText = findViewById(R.id.TimerText)
         questionTextView = findViewById(R.id.cardTextViewQuestionBody)
         cardButtonOption1 = findViewById(R.id.cardButtonOption1)
         cardButtonOption2 = findViewById(R.id.cardButtonOption2)
         cardButtonOption3 = findViewById(R.id.cardButtonOption3)
         cardButtonOption4 = findViewById(R.id.cardButtonOption4)
+        scoreTextView = findViewById(R.id.playScoreTextView)
+        highScoreTextView = findViewById(R.id.playHighScoreTextView)
+
+        scoreTextView.text = getString(R.string.play_score_textview) + score.toString()
+        highScoreTextView.text = getString(R.string.play_high_score_textview) + highScore.toString()
 
         questionGetter = QuestionGetter(this)
 
@@ -96,7 +108,7 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
         val seconds = timeLeftInMillis / 1000
         val millis = (timeLeftInMillis % 1000) / 10
         val timeFormatted = String.format("%02d:%02d", seconds, millis)
-        TimerText.text = timeFormatted
+        timerText.text = timeFormatted
     }
 
     private fun setAnswerButtonClickListeners() {
@@ -123,6 +135,9 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
 
         if (correctAnswer == clickedButton.text.toString()) {
             // Respuesta correcta
+            score += 1
+            ScoresUpdate()
+
             Toast.makeText(this, "Correct", Toast.LENGTH_SHORT).show()
             checkAndColorButtons(correctAnswer)
             // Puedes hacer otras acciones aquí, como cargar la siguiente pregunta, etc.
@@ -131,9 +146,11 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
             betweenQuestionTimer?.start()
         } else {
             // Respuesta incorrecta
+            ScoresUpdate()
+
             Toast.makeText(this, "Wrong, you lose!!!", Toast.LENGTH_SHORT).show()
             checkAndColorButtons(correctAnswer)
-            val dialogFragment = MyDialogFragment.newInstance(false)
+            val dialogFragment = MyDialogFragment(score)
             dialogFragment.show(supportFragmentManager, "my_dialog")
         }
     }
@@ -174,6 +191,21 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
 
         // Activar solo el botón clickeado (opcional)
         //clickedButton.isEnabled = true
+    }
+
+    //Funcion para modificar las puntuaciones y setear sus textos
+    private fun ScoresUpdate()
+    {
+        scoreTextView.text = getString(R.string.play_score_textview) + score.toString()
+
+        if (score > highScore)
+        {
+
+            OptionActivity.saveHighScore(score,sharedPreferences)
+            highScore =
+                sharedPreferences.getInt(OptionActivity.KEY_HIGH_SCORE, 0)
+            highScoreTextView.text = getString(R.string.play_high_score_textview) + highScore.toString()
+        }
     }
 
 
