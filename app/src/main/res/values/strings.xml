@@ -20,4 +20,10 @@
     <string name="gamecard_question_option2_textview">Option B</string>
     <string name="gamecard_question_option3_textview">Option C</string>
     <string name="gamecard_question_option4_textview">Option D</string>
+
+    <string name="popup_title_textview">You Lose!</string>
+    <string name="popup_score_textview">Score:\n</string>
+    <string name="popup_high_score_textview">High Score:\n</string>
+    <string name="popup_retry_button">Try Again</string>
+    <string name="popup_home_button">Exit</string>
 </resources>

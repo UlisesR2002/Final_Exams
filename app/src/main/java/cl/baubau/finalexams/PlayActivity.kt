@@ -1,6 +1,7 @@
 package cl.baubau.finalexams
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -122,7 +123,7 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
 
         if (correctAnswer == clickedButton.text.toString()) {
             // Respuesta correcta
-            Toast.makeText(this, "Correcto", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Correct", Toast.LENGTH_SHORT).show()
             checkAndColorButtons(correctAnswer)
             // Puedes hacer otras acciones aquí, como cargar la siguiente pregunta, etc.
 
@@ -130,10 +131,10 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
             betweenQuestionTimer?.start()
         } else {
             // Respuesta incorrecta
-            Toast.makeText(this, "Incorrecto, perdiste!!!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Wrong, you lose!!!", Toast.LENGTH_SHORT).show()
             checkAndColorButtons(correctAnswer)
-            // Puedes hacer otras acciones aquí, como mostrar la respuesta correcta, etc.
-            betweenQuestionTimer?.start()
+            val dialogFragment = MyDialogFragment.newInstance(false)
+            dialogFragment.show(supportFragmentManager, "my_dialog")
         }
     }
 

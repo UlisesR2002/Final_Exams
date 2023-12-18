@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/layout/popup_loss.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Theme.FinalExams"
+    android:background="@color/colorPrimary"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="60dp">
+
+    <TextView
+        android:id="@+id/popupTitleTextView"
+        style="@style/FinalExamsTitlesTexts"
+        android:layout_width="229dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:gravity="center"
+        android:text="@string/popup_title_textview"
+        android:textSize="70sp"
+        tools:ignore="TextSizeCheck" />
+
+    <TextView
+        android:id="@+id/popupScoreTextView"
+        style="@style/FinalExamsNumberQuestionsTexts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:gravity="center"
+        android:text="@string/popup_score_textview" />
+
+    <TextView
+        android:id="@+id/popupHighScoreTextView"
+        style="@style/FinalExamsNumberQuestionsTexts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:gravity="center"
+        android:text="@string/popup_high_score_textview" />
+
+    <Button
+        android:id="@+id/popupRetryButton"
+        style="@style/FinalExamsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:gravity="center"
+        android:text="@string/popup_retry_button" />
+
+    <Button
+        android:id="@+id/popupHomeButton"
+        style="@style/FinalExamsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/popup_home_button" />
+
+</LinearLayout>
