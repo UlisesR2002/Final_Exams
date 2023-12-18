@@ -82,6 +82,21 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
         questionGetter.getQuestion()
     }
 
+
+    override fun onResume() {
+        super.onResume()
+        // Reactivar los cronómetros u otras funciones si es necesario
+        countDownTimer?.start()
+        // También puedes agregar otras funciones que deban activarse cuando la actividad esté en primer plano
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Desactivar los cronómetros u otras funciones si la actividad pasa a segundo plano
+        countDownTimer?.cancel()
+        // También puedes agregar otras funciones que deban desactivarse cuando la actividad no esté visible
+    }
+
     private fun initializeCountdown() {
         countDownTimer = object : CountDownTimer(timeLeftInMillis, 10) {
             override fun onTick(millisUntilFinished: Long) {
