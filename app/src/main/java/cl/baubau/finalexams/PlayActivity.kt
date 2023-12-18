@@ -20,6 +20,7 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
 
     private var score: Int = 0
     private var highScore: Int = 0
+    private var difficulty: String = ""
     private lateinit var scoreTextView: TextView
     private lateinit var highScoreTextView: TextView
 
@@ -43,6 +44,7 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
         setContentView(R.layout.activity_play)
 
         sharedPreferences = getSharedPreferences("common_prefs", Context.MODE_PRIVATE)
+        difficulty = sharedPreferences.getString(OptionActivity.KEY_DIFFICULTY, OptionActivity.DEFAULT_DIFFICULTY)!!
 
         highScore =
             sharedPreferences.getInt(OptionActivity.KEY_HIGH_SCORE, 0)
@@ -152,7 +154,12 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
 
         if (correctAnswer == clickedButton.text.toString()) {
             // Respuesta correcta
-            score += 1
+            when (difficulty) {
+                "easy" -> score += 1
+                "medium" -> score += 2
+                "hard" -> score += 3
+                else -> score += 1
+            }
             onScoresUpdate()
 
             Toast.makeText(this, "Correct", Toast.LENGTH_SHORT).show()

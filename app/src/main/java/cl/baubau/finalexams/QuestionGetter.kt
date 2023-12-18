@@ -156,8 +156,11 @@ class QuestionGetter(private val callback: GetterCallback, private val context: 
                 incorrectAnswers.add(firstQuestion.getJSONArray("incorrect_answers").getString(1))
                 incorrectAnswers.add(firstQuestion.getJSONArray("incorrect_answers").getString(2))
 
-                println("Procesadas preguntas incorrectas")
 
+
+                incorrectAnswers.shuffle()
+
+                println("Procesadas preguntas incorrectas")
 
                 // Mostrar los resultados
                 println("Pregunta: $question")
