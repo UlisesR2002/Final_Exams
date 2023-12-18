@@ -62,8 +62,8 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
         scoreTextView = findViewById(R.id.playScoreTextView)
         highScoreTextView = findViewById(R.id.playHighScoreTextView)
 
-        scoreTextView.text = getString(R.string.play_score_textview) + score.toString()
-        highScoreTextView.text = getString(R.string.play_high_score_textview) + highScore.toString()
+        scoreTextView.text = getString(R.string.play_score_textview, score.toString())
+        highScoreTextView.text = getString(R.string.play_high_score_textview, highScore.toString())
 
         questionGetter = QuestionGetter(this)
 
@@ -136,7 +136,7 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
         if (correctAnswer == clickedButton.text.toString()) {
             // Respuesta correcta
             score += 1
-            ScoresUpdate()
+            onScoresUpdate()
 
             Toast.makeText(this, "Correct", Toast.LENGTH_SHORT).show()
             checkAndColorButtons(correctAnswer)
@@ -146,7 +146,7 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
             betweenQuestionTimer?.start()
         } else {
             // Respuesta incorrecta
-            ScoresUpdate()
+            onScoresUpdate()
 
             Toast.makeText(this, "Wrong, you lose!!!", Toast.LENGTH_SHORT).show()
             checkAndColorButtons(correctAnswer)
@@ -194,9 +194,10 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
     }
 
     //Funcion para modificar las puntuaciones y setear sus textos
-    private fun ScoresUpdate()
+    private fun onScoresUpdate()
     {
-        scoreTextView.text = getString(R.string.play_score_textview) + score.toString()
+        val scoreText = getString(R.string.play_score_textview, score.toString())
+        scoreTextView.text = scoreText
 
         if (score > highScore)
         {
@@ -204,7 +205,9 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
             OptionActivity.saveHighScore(score,sharedPreferences)
             highScore =
                 sharedPreferences.getInt(OptionActivity.KEY_HIGH_SCORE, 0)
-            highScoreTextView.text = getString(R.string.play_high_score_textview) + highScore.toString()
+
+            val highScoreText = getString(R.string.play_high_score_textview , highScore.toString())
+            highScoreTextView.text = highScoreText
         }
     }
 

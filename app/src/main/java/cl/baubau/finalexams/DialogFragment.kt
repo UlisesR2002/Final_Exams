@@ -12,9 +12,8 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 
 
-class MyDialogFragment(score: Int) : DialogFragment() {
+class MyDialogFragment(private var score: Int) : DialogFragment() {
     private lateinit var sharedPreferences: SharedPreferences
-    private var score: Int = score
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Inflar el diseño del diálogo
@@ -32,8 +31,10 @@ class MyDialogFragment(score: Int) : DialogFragment() {
         val savedHighScore =
             sharedPreferences.getInt(OptionActivity.KEY_HIGH_SCORE, 0)
 
-        scoreTextView.text = getString(R.string.popup_high_score_textview) + score.toString()
-        highScore.text = getString(R.string.popup_high_score_textview) + savedHighScore.toString()
+        val scoreText = getString(R.string.popup_score_textview, score.toString())
+        scoreTextView.text = scoreText
+        val highScoreText = getString(R.string.popup_high_score_textview, savedHighScore.toString())
+        highScore.text = highScoreText
 
         button1.setOnClickListener {
             // Acción para el botón 1

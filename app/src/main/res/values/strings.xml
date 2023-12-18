@@ -13,8 +13,8 @@
     <string name="option_select_category_button">Select category</string>
 
     <string name="play_timer_textview">00:00</string>
-    <string name="play_score_textview">Score: </string>
-    <string name="play_high_score_textview">High Score: </string>
+    <string name="play_score_textview">Score: %s</string>
+    <string name="play_high_score_textview">High Score: %s</string>
 
     <string name="gamecard_question_number_textview">Question N°</string>
     <string name="gamecard_question_body_textview">Question body</string>
@@ -24,8 +24,8 @@
     <string name="gamecard_question_option4_textview">Option D</string>
 
     <string name="popup_title_textview">You Lose!</string>
-    <string name="popup_score_textview">Score:\n</string>
-    <string name="popup_high_score_textview">High Score:\n</string>
+    <string name="popup_score_textview">Score:\n%s</string>
+    <string name="popup_high_score_textview">High Score:\n%s</string>
     <string name="popup_retry_button">Try Again</string>
     <string name="popup_home_button">Exit</string>
 </resources>
