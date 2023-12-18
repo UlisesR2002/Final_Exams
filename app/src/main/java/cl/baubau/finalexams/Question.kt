@@ -1,9 +1,5 @@
 package cl.baubau.finalexams
 
-class Question(val question: String, val answer: String, val options: List<String>)
+class Question(var question: String, var answer: String, var options: List<String>)
 {
-    fun isCorrect(answer: String) : Boolean
-    {
-        return this.answer == answer;
-    }
 }

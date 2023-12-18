@@ -10,15 +10,24 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 
-class PlayActivity : AppCompatActivity() {
+class PlayActivity : AppCompatActivity(), GetterCallback{
     private lateinit var sharedPreferences: SharedPreferences
     private var countDownTimer: CountDownTimer? = null
+    private var betweenQuestionTimer: CountDownTimer? = null
+
     private var timeLeftInMillis: Long = 15000 // 15 segundos inicialmente
     private lateinit var TimerText: TextView
+
+    private lateinit var questionTextView: TextView
     private lateinit var cardButtonOption1: Button
     private lateinit var cardButtonOption2: Button
     private lateinit var cardButtonOption3: Button
     private lateinit var cardButtonOption4: Button
+
+    //El que obtiene las preguntas
+    private lateinit var questionGetter: QuestionGetter
+    //La pregunta actual
+    private lateinit var actualQuestion: Question
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,19 +46,30 @@ class PlayActivity : AppCompatActivity() {
 
         // Buscar las vistas por sus IDs
         TimerText = findViewById(R.id.TimerText)
+        questionTextView = findViewById(R.id.cardTextViewQuestionBody)
         cardButtonOption1 = findViewById(R.id.cardButtonOption1)
         cardButtonOption2 = findViewById(R.id.cardButtonOption2)
         cardButtonOption3 = findViewById(R.id.cardButtonOption3)
         cardButtonOption4 = findViewById(R.id.cardButtonOption4)
 
-        // Iniciar el cronómetro
-        startCountdown()
+        questionGetter = QuestionGetter(this)
+
+        // Inicializar los cronómetros
+        initializeCountdown()
 
         // Listener para los botones de respuesta
         setAnswerButtonClickListeners()
+
+        //La primera vez no debemos activar los botones hasta obtener la pregunta
+        cardButtonOption1.isEnabled = false
+        cardButtonOption2.isEnabled = false
+        cardButtonOption3.isEnabled = false
+        cardButtonOption4.isEnabled = false
+
+        questionGetter.getQuestion()
     }
 
-    private fun startCountdown() {
+    private fun initializeCountdown() {
         countDownTimer = object : CountDownTimer(timeLeftInMillis, 10) {
             override fun onTick(millisUntilFinished: Long) {
                 timeLeftInMillis = millisUntilFinished
@@ -60,7 +80,15 @@ class PlayActivity : AppCompatActivity() {
                 // Aquí puedes manejar lo que sucede cuando el tiempo se agota
                 Toast.makeText(this@PlayActivity, "Tiempo agotado", Toast.LENGTH_SHORT).show()
             }
-        }.start()
+        }
+
+
+        //2 Segundos entre preguntas
+        betweenQuestionTimer = object : CountDownTimer(2000, 2000) {
+            override fun onTick(millisUntilFinished: Long) {}
+
+            override fun onFinish() { questionGetter.getQuestion() }
+        }
     }
 
     private fun updateCountdownText() {
@@ -71,40 +99,45 @@ class PlayActivity : AppCompatActivity() {
     }
 
     private fun setAnswerButtonClickListeners() {
-        val correctAnswer = "Option A" // Reemplaza con la respuesta correcta
 
         cardButtonOption1.setOnClickListener {
-            checkAnswerAndStopTimer(correctAnswer, cardButtonOption1)
+            checkAnswerAndStopTimer(cardButtonOption1)
         }
 
         cardButtonOption2.setOnClickListener {
-            checkAnswerAndStopTimer(correctAnswer, cardButtonOption2)
+            checkAnswerAndStopTimer(cardButtonOption2)
         }
 
         cardButtonOption3.setOnClickListener {
-            checkAnswerAndStopTimer(correctAnswer, cardButtonOption3)
+            checkAnswerAndStopTimer(cardButtonOption3)
         }
 
         cardButtonOption4.setOnClickListener {
-            checkAnswerAndStopTimer(correctAnswer, cardButtonOption4)
+            checkAnswerAndStopTimer(cardButtonOption4)
         }
     }
 
-    private fun checkAnswerAndStopTimer(correctAnswer: String, clickedButton: Button) {
+    private fun checkAnswerAndStopTimer(clickedButton: Button) {
+        val correctAnswer = actualQuestion.answer
+
         if (correctAnswer == clickedButton.text.toString()) {
             // Respuesta correcta
             Toast.makeText(this, "Correcto", Toast.LENGTH_SHORT).show()
-            checkAndColorButtons(correctAnswer,clickedButton)
+            checkAndColorButtons(correctAnswer)
             // Puedes hacer otras acciones aquí, como cargar la siguiente pregunta, etc.
+
+            //Empezamos el contador para la siguente pregunta
+            betweenQuestionTimer?.start()
         } else {
             // Respuesta incorrecta
-            Toast.makeText(this, "Incorrecto", Toast.LENGTH_SHORT).show()
-            checkAndColorButtons(correctAnswer,clickedButton)
+            Toast.makeText(this, "Incorrecto, perdiste!!!", Toast.LENGTH_SHORT).show()
+            checkAndColorButtons(correctAnswer)
             // Puedes hacer otras acciones aquí, como mostrar la respuesta correcta, etc.
+            betweenQuestionTimer?.start()
         }
     }
 
-    private fun checkAndColorButtons(correctAnswer: String,clickedButton: Button) {
+    private fun checkAndColorButtons(correctAnswer: String) {
         // Detener el cronómetro
         countDownTimer?.cancel()
 
@@ -139,6 +172,36 @@ class PlayActivity : AppCompatActivity() {
         cardButtonOption4.isEnabled = false
 
         // Activar solo el botón clickeado (opcional)
-        clickedButton.isEnabled = true
+        //clickedButton.isEnabled = true
+    }
+
+
+    //Funcion cuando la corrutina obtiene la pregunta
+    override fun onQuestionGet(result: Question)
+    {
+        //actualizar
+        actualQuestion = result
+
+        questionTextView.text = actualQuestion.question
+
+        cardButtonOption1.text = actualQuestion.options[0]
+        cardButtonOption2.text = actualQuestion.options[1]
+        cardButtonOption3.text = actualQuestion.options[2]
+        cardButtonOption4.text = actualQuestion.options[3]
+
+        //Default color
+        cardButtonOption1.setTextColor(ContextCompat.getColor(this, R.color.colorTextTile))
+        cardButtonOption2.setTextColor(ContextCompat.getColor(this, R.color.colorTextTile))
+        cardButtonOption3.setTextColor(ContextCompat.getColor(this, R.color.colorTextTile))
+        cardButtonOption4.setTextColor(ContextCompat.getColor(this, R.color.colorTextTile))
+
+        //Enabled buttons
+        cardButtonOption1.isEnabled = true
+        cardButtonOption2.isEnabled = true
+        cardButtonOption3.isEnabled = true
+        cardButtonOption4.isEnabled = true
+
+        //Empezamos contador del juego
+        countDownTimer?.start()
     }
 }

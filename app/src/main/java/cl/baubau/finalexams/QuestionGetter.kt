@@ -5,8 +5,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
-import org.w3c.dom.Text
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
@@ -21,7 +19,12 @@ class QuestionGetter(private val callback: GetterCallback)
     private val baseAddress: String = "https://opentdb.com/api.php?amount=1"
     private var questionCount: Int = 0;
 
-    fun execute()
+    init
+    {
+
+    }
+
+    fun getQuestion()
     {
         var urlString = baseAddress
 
@@ -42,18 +45,21 @@ class QuestionGetter(private val callback: GetterCallback)
 
     fun getTestQuestion() : Question
     {
-        val answers = listOf<String>()
-        answers.plus("Water")
-        answers.plus("Cloro")
-        answers.plus("More blood")
-        answers.plus("ADN")
+        val options = mutableListOf<String>()
+        options.add("Water")
+        options.add("Cloro")
+        options.add("More blood")
+        options.add("ADN")
+
+        options.shuffle()
 
         val question = Question(
             "How to clean blood?",
             "More blood",
-            answers
+            options
             )
 
+        question.options = options
         return question;
     }
 
