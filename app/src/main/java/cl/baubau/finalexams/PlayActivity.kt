@@ -94,7 +94,7 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
         super.onPause()
         // Desactivar los cronómetros u otras funciones si la actividad pasa a segundo plano
         countDownTimer?.cancel()
-        // También puedes agregar otras funciones que deban desactivarse cuando la actividad no esté visible
+
     }
 
     private fun initializeCountdown() {
