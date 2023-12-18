@@ -180,6 +180,14 @@ class OptionActivity : AppCompatActivity() {
                 sharedPreferences.getBoolean("${KEY_CATEGORY}$it", it == 0) // Establecer "Any category" como true por defecto
             }
 
+            // Verificar si todos los checkboxes están en falso
+            val allUnchecked = selectedCategories.all { !it }
+
+            if (allUnchecked) {
+                // Si todos están desmarcados, activar "Any category"
+                selectedCategories[0] = true
+            }
+
             val namesString = sharedPreferences.getString(KEY_CATEGORY_NAMES, null)
             val categoryNames = if (!namesString.isNullOrBlank()) {
                 namesString.split(",").toTypedArray()
