@@ -195,7 +195,7 @@ class QuestionGetter(private val callback: GetterCallback, private val context: 
         var categories = mutableListOf<Int>()
 
         //Las categorias empiezan desde el nueve, no tengo idea no me pregunten XD
-        var i = 9
+        var i = 8
 
         for (selection in selectedCategories)
         {
