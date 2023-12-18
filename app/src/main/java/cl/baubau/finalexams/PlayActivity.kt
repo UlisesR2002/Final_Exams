@@ -24,6 +24,8 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
     private lateinit var highScoreTextView: TextView
 
     private lateinit var questionTextView: TextView
+    private lateinit var questionNumberTextView: TextView
+
     private lateinit var cardButtonOption1: Button
     private lateinit var cardButtonOption2: Button
     private lateinit var cardButtonOption3: Button
@@ -34,20 +36,13 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
     //La pregunta actual
     private lateinit var actualQuestion: Question
 
+    private var makeResume = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play)
 
         sharedPreferences = getSharedPreferences("common_prefs", Context.MODE_PRIVATE)
-
-        val savedDifficulty =
-            sharedPreferences.getString(OptionActivity.KEY_DIFFICULTY, OptionActivity.DEFAULT_DIFFICULTY)
-
-        val (selectedCategories, categoryNames) = OptionActivity.loadSelectedCategories(sharedPreferences)
-
-        println(savedDifficulty)
-        println("Category Names: ${categoryNames.joinToString(", ")}")
-        println("Category Bool: ${selectedCategories.joinToString(", ")}")
 
         highScore =
             sharedPreferences.getInt(OptionActivity.KEY_HIGH_SCORE, 0)
@@ -55,6 +50,7 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
         // Buscar las vistas por sus IDs
         timerText = findViewById(R.id.TimerText)
         questionTextView = findViewById(R.id.cardTextViewQuestionBody)
+        questionNumberTextView = findViewById(R.id.cardTextViewNumberQuestion)
         cardButtonOption1 = findViewById(R.id.cardButtonOption1)
         cardButtonOption2 = findViewById(R.id.cardButtonOption2)
         cardButtonOption3 = findViewById(R.id.cardButtonOption3)
@@ -65,7 +61,7 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
         scoreTextView.text = getString(R.string.play_score_textview, score.toString())
         highScoreTextView.text = getString(R.string.play_high_score_textview, highScore.toString())
 
-        questionGetter = QuestionGetter(this)
+        questionGetter = QuestionGetter(this,this)
 
         // Inicializar los cronómetros
         initializeCountdown()
@@ -85,16 +81,22 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
 
     override fun onResume() {
         super.onResume()
+
+        if(!makeResume)
+            return
         // Reactivar los cronómetros u otras funciones si es necesario
         countDownTimer?.start()
         // También puedes agregar otras funciones que deban activarse cuando la actividad esté en primer plano
+
+        //Recargar pregunta
+        if(::actualQuestion.isInitialized)
+            onQuestionGet(actualQuestion)
     }
 
     override fun onPause() {
         super.onPause()
         // Desactivar los cronómetros u otras funciones si la actividad pasa a segundo plano
         countDownTimer?.cancel()
-
     }
 
     private fun initializeCountdown() {
@@ -105,11 +107,11 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
             }
 
             override fun onFinish() {
-                // Aquí puedes manejar lo que sucede cuando el tiempo se agota
+                val dialogFragment = MyDialogFragment(score)
+                dialogFragment.show(supportFragmentManager, "my_dialog")
                 Toast.makeText(this@PlayActivity, "Tiempo agotado", Toast.LENGTH_SHORT).show()
             }
         }
-
 
         //2 Segundos entre preguntas
         betweenQuestionTimer = object : CountDownTimer(2000, 2000) {
@@ -230,10 +232,28 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
     //Funcion cuando la corrutina obtiene la pregunta
     override fun onQuestionGet(result: Question)
     {
+        if(result.question == "Error")
+        {
+            Toast.makeText(this,"An error as occurred, please try play later", Toast.LENGTH_LONG).show()
+            finish()
+        }
+
+        if(result.question == "Timeout")
+        {
+            Toast.makeText(this,"The server did not respond. Please try again later", Toast.LENGTH_LONG).show()
+            finish()
+            return
+        }
+
+
+        makeResume = true
+        println("Obtuvimos la pregunta $result")
         //actualizar
         actualQuestion = result
 
         questionTextView.text = actualQuestion.question
+
+        questionNumberTextView.text = getString(R.string.gamecard_question_number_textview) + (score + 1).toString()
 
         cardButtonOption1.text = actualQuestion.options[0]
         cardButtonOption2.text = actualQuestion.options[1]
