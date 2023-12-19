@@ -37,6 +37,9 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
     //La pregunta actual
     private lateinit var actualQuestion: Question
 
+    private var questionNumber: Int = 0
+
+
     private var makeResume = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -260,7 +263,8 @@ class PlayActivity : AppCompatActivity(), GetterCallback{
 
         questionTextView.text = actualQuestion.question
 
-        questionNumberTextView.text = getString(R.string.gamecard_question_number_textview) + (score + 1).toString()
+        questionNumber++
+        questionNumberTextView.text = getString(R.string.gamecard_question_number_textview) + (questionNumber).toString()
 
         cardButtonOption1.text = actualQuestion.options[0]
         cardButtonOption2.text = actualQuestion.options[1]
